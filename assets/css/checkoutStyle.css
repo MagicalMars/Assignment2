@@ -1,0 +1,153 @@
+body {
+    font-family: arial;
+}
+
+label {
+    font-size: 13px;
+
+}
+
+#billing {
+    background-color:ghostwhite;
+    width: 380px;
+    position: absolute;
+    top: 75px;
+    height: 453px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#billingTitle {
+    margin-top: 1px;
+    margin-left: 2%;
+}
+
+#fName {
+    position: relative;
+    margin-left: 2%;
+}
+#fName input {
+    width: 175px;
+    width: 45%
+}
+
+#lName {
+    position: absolute;
+    left: 201px;
+    top: 41px;
+}
+
+#lName input {
+    width: 100%;
+}
+
+#uName {
+    position: relative;
+    margin-left: 2%;
+
+}
+#uName input {
+    width: 96%;
+}
+
+#email {
+    position: relative;
+    margin-left: 2%;
+}
+#email input {
+    width: 96%;
+}
+
+#address {
+    position: relative;
+    margin-left: 2%;
+}
+#address input {
+    width: 96%;
+}
+
+#address2 {
+    position: relative;
+    margin-left: 2%;
+}
+#address2 input{
+    width: 96%;
+}
+
+#country {
+    position: relative;
+    margin-left: 2%;
+}
+#country input {
+    width: 145px;
+}
+
+#state {
+    position: absolute;
+    bottom: 78.7px;
+    left: 174.5px;
+}
+
+#state input {
+    width: 110px;
+}
+
+#zip {
+    position: absolute;
+    bottom: 78.7px;
+    left: 301px;
+}
+
+#zip input {
+    width: 70px;
+}
+
+
+#cBoxes {
+    position: relative;
+    border-top: solid 1px lightgray;
+}
+
+
+#pay {
+    position:absolute;
+	left: 427px;
+    top: 75px;
+    background-color:ghostwhite;
+    height: 453px;
+    width: 300px;
+}
+
+
+#payTitle {
+    margin-top: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+#checkout {
+    text-align: center;
+    width: 96%;
+    position: absolute;
+    bottom:20px;
+    margin-left: 2%;
+    background-color:dodgerblue;
+    border-color: dodgerblue;
+    border-style: solid;
+    border-radius: 2px;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+#checkout:hover {
+    background-color:darkblue;
+    border-color:darkblue;
+}
+
+img {
+    position: relative;
+    top: 20px;
+    width: auto;
+    height: 10%;
+}
