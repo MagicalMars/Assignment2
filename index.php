@@ -1,29 +1,45 @@
 <?php
+require_once 'item.php';
+
 session_start();
-require 'item.php';
-$item1 = new Item(
-"Bronton",
-"assets/img/bronton.jpg",
-0,
-3000,
-"Very fancy bike with tiny wheels! Exciting!");
+if (!isset($_SESSION['itemList'])) {
+    $item1 = new Item(
+    "Bronton",
+    "assets/img/bronton.jpg",
+    0,
+    3000,
+    "Very fancy bike with tiny wheels! Exciting!");
 
-$item2 = new Item(
-"E-BMX",
-"assets/img/dummyimg.jpg",
-0,
-2000,
-"It's a bike but electric! Wow!");
+    $item2 = new Item(
+    "E-BMX",
+    "assets/img/dummyimg.jpg",
+    0,
+    2000,
+    "It's a bike but electric! Wow!");
 
 
-$item3 = new Item(
-"F-65",
-"assets/img/f65.jpg",
-0,
-700,
-"It's an e scooter... for e scootering");
+    $item3 = new Item(
+    "F-65",
+    "assets/img/f65.jpg",
+    0,
+    700,
+    "It's an e scooter... for e scootering");
 
-$items = [$item1, $item2, $item3];
+    $_SESSION['itemList'] = [$item1, $item2, $item3];
+}
+if (isset($_POST['item1'])){
+    $_SESSION['itemList'][0]->addQty();
+}
+
+if (isset($_POST['item2'])){
+    $_SESSION['itemList'][1]->addQty();
+}
+
+if (isset($_POST['item3'])){
+    $_SESSION['itemList'][2]->addQty();
+}
+
+
 
 ?>
 
@@ -48,140 +64,141 @@ $items = [$item1, $item2, $item3];
     <link href="assets/css/style.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><strong>ALICE'S</strong> ELECTRONIC BIKE Shop</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="chart.php" onclick = '<?php $_SESSION['itemList'] = $items ?>'>Open cart</a></li>
-                    <!-- <li><a href="#">Track Order</a></li> -->
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Signup</a></li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">24x7 Support <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#"><strong>Call: </strong>+61-000-000-000</a></li>
-                            <li><a href="#"><strong>Mail: </strong>info@alicebikeshop.com</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#"><strong>Address: </strong>
-                                <div>
-                                    Melbourne,<br />
-                                    VIC 3000, AUSTRALIA
-                                </div>
-                            </a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
-                    </div>
-                    &nbsp; 
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-    <div class="container">
-
-        <div class="row">
-      
-            <div class="col-md-9">
-                <div>
-                    <ol class="breadcrumb">
-                        
-                        <li class="active">Computers</li>
-                    </ol>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><strong>ALICE'S</strong> ELECTRONIC BIKE Shop</a>
                 </div>
-                <!-- /.div -->
-                <div class="row">
-                    <div class="btn-group alg-right-pad">
-                        <button type="button" class="btn btn-default"><strong>1235  </strong>items</button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-                                Sort Products &nbsp;
-      <span class="caret"></span>
-                            </button>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="chart.php">Open cart</a></li>
+                        <!-- <li><a href="#">Track Order</a></li> -->
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Signup</a></li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">24x7 Support <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">By Price Low</a></li>
+                                <li><a href="#"><strong>Call: </strong>+61-000-000-000</a></li>
+                                <li><a href="#"><strong>Mail: </strong>info@alicebikeshop.com</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">By Price High</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">By Popularity</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">By Reviews</a></li>
+                                <li><a href="#"><strong>Address: </strong>
+                                    <div>
+                                        Melbourne,<br />
+                                        VIC 3000, AUSTRALIA
+                                    </div>
+                                </a></li>
                             </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-right"> <!--Changed from form to div since it is redundant-->
+                        <div class="form-group">
+                            <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
                         </div>
-                    </div>
+                        &nbsp; 
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
                 </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="assets/img/bronton.jpg" alt="" />
-                            <div class="caption">
-                                <h3><a href="#">Bronton </a></h3>
-                                <p>Price : <strong>$ 3000</strong>  </p>
-                                
-                                
-                                <p><a href="#" onclick = '<?php $items[0]->addQty()?>'class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="assets/img/dummyimg.jpg" alt="" />
-                            <div class="caption">
-                                <h3><a href="#">E-BMX </a></h3>
-                                <p>Price : <strong>$ 2000</strong>  </p>
-                                
-                                
-                                <p><a href="#" onclick = '<?php $items[1]->addQty()?>'class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                        <div class="thumbnail product-box">
-                            <img src="assets/img/f65.jpg" alt="" />
-                            <div class="caption">
-                                <h3><a href="#">F-65 </a></h3>
-                                <p>Price : <strong>$ 700</strong>  </p>
-                                
-                                
-                                <p><a href="#" onclick = '<?php $items[2]->addQty()?>'class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-
-                </div>
-                <!-- /.row -->
-                
+                <!-- /.navbar-collapse -->
             </div>
-            <!-- /.col -->
+            <!-- /.container-fluid -->
+        </nav>
+        <div class="container">
+
+            <div class="row">
+        
+                <div class="col-md-9">
+                    <div>
+                        <ol class="breadcrumb">
+                            
+                            <li class="active">Computers</li>
+                        </ol>
+                    </div>
+                    <!-- /.div -->
+                    <div class="row">
+                        <div class="btn-group alg-right-pad">
+                            <button type="button" class="btn btn-default"><strong>1235  </strong>items</button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                    Sort Products &nbsp;
+        <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">By Price Low</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">By Price High</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">By Popularity</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">By Reviews</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <form method = 'post'>
+                        <div class="row">
+                            <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                                <div class="thumbnail product-box">
+                                    <img src="assets/img/bronton.jpg" alt="" />
+                                    <div class="caption">
+                                        <h3><a href="#">Bronton </a></h3>
+                                        <p>Price : <strong>$ 3000</strong>  </p>
+                                        
+                                        
+                                        <p><button href="#" name = 'item1' class="btn btn-success" role="button" >Add To Cart</button> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                                <div class="thumbnail product-box">
+                                    <img src="assets/img/dummyimg.jpg" alt="" />
+                                    <div class="caption">
+                                        <h3><a href="#">E-BMX </a></h3>
+                                        <p>Price : <strong>$ 2000</strong>  </p>
+                                        
+                                        
+                                        <p><button href="#" name = 'item2' value = '1' class="btn btn-success" role="button">Add To Cart</button> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                                <div class="thumbnail product-box">
+                                    <img src="assets/img/f65.jpg" alt="" />
+                                    <div class="caption">
+                                        <h3><a href="#">F-65 </a></h3>
+                                        <p>Price : <strong>$ 700</strong>  </p>
+                                        
+                                        
+                                        <p><button href="#" name = 'item3' value = '1' class="btn btn-success" role="button">Add To Cart</button> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                    </div>
+                    <!-- /.row -->
+                    
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-    </div>
     <!-- /.container -->
     
 
@@ -229,12 +246,3 @@ $items = [$item1, $item2, $item3];
 		</script>
 </body>
 </html>
-
-<script>
-function updateQty(num){
-        <?php
-            $items[num]->addQty();
-        ?>
-}
-
-</script>

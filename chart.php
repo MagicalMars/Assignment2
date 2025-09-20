@@ -1,7 +1,36 @@
 <?php
-require 'item.php';
+require_once 'Item.php';
 session_start();
+// $_SESSION['itemList'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if (isset($_POST['update'])){
+        $positive = 0;
+        for ($i = 0; $i < count($_SESSION['itemList']); $i++){
+            if ($_SESSION['itemList'][$i]->getQty() > 0) {
+                $_SESSION['itemList'][$i]->changeQty($_POST['item'. ($i + 1)]);
+            }
+        }
+
+    } elseif (isset($_POST['remove'])) {
+        if (isset($_POST['check1'])){
+            $_SESSION['itemList'][0]->changeQty(0);
+        }
+        if (isset($_POST['check2'])){
+            $_SESSION['itemList'][1]->changeQty(0);
+        } 
+        
+        if (isset($_POST['check3'])){
+            $_SESSION['itemList'][2]->changeQty(0);
+        }
+    }
+
+}
+
+
+
 $items = $_SESSION['itemList'];
+
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +84,24 @@ $items = $_SESSION['itemList'];
             padding: 10px 20px;
             cursor: pointer;
         }
+
+        #checkout {
+            position: relative;
+            left: 70%;
+            background-color: brown;
+            color: white;
+            font-family: calibri;
+            text-decoration: none;
+            padding: 15px;
+            padding-top: 5px;
+            padding-bottom: 8px;
+        }
+
+        label {
+            font-size: 20px;
+            font-family: monaco;
+            font-weight: 900;
+        }
     </style>
 </head>
 <body>
@@ -71,10 +118,11 @@ $items = $_SESSION['itemList'];
     </div>
 
     <?php
+    echo "<form method = 'post' id = 'items'>";
     for ($i = 0; $i < count($items); $i++){
-        if ($items[$i]->getQty() > 0) { //Should print nothing atm since quantity is currently always 0.
+        if ($items[$i]->getQty() > 0) {
             echo "<div class='cart-item'>
-                    <div><input type='checkbox'></div>
+                    <div><input type='checkbox' name = 'check".($i + 1)."'></div>
                     <div><img src='".$items[$i]->getImg()."' alt='".$items[$i]->getName()."'></div>
                     <div class='description'>
                         <p><strong>".$items[$i]->getName()."</strong></p>
@@ -82,26 +130,15 @@ $items = $_SESSION['itemList'];
                         <p>Availability: <span style='color:green;'>Online</span> <span style='color:blue;'>Immediate Pick-up</span></p>
                     </div>
                     <div class='price'>$".$items[$i]->getPrice()."</div>
-                    <div class='qty'><input type='number' value='".$items[$i]->getQty()."'></div>
-                    <div class='total'>".$items[$i]->getQty() * $items[$i]->getPrice()."</div>
+                    <div class='qty'><input type='number' name = 'item".($i + 1)."' value='".$items[$i]->getQty()."'></div>
+                    <div class='total'>$".$items[$i]->getQty() * $items[$i]->getPrice()."</div>
                 </div>";
         }
     }
+    echo "</form>";
     ?>
 
-    <!-- <div class="cart-item">
-        <div><input type="checkbox"></div>
-        <div><img src="assets/img/bronton.jpg" alt="Electric Bike Model 1"></div>
-        <div class="description">
-            <p><strong>[EB1-500W-48V-28MPH] Electric Bike Model 1</strong></p>
-            <p>500W Motor, 48V Battery, Range: 50 miles, Top Speed: 28 mph</p>
-            <p>Availability: <span style="color:green;">Online</span> <span style="color:blue;">Immediate Pick-up</span></p>
-        </div>
-        <div class="price">$1,299.00</div>
-        <div class="qty"><input type="number" value="1"></div>
-        <div class="total">$1,299.00</div>
-    </div> -->
-
+    <!-- Template -->
     <!-- <div class="cart-item">
         <div><input type="checkbox"></div>
         <div><img src="assets/img/bronton.jpg" alt="Electric Bike Model 2"></div>
@@ -115,9 +152,15 @@ $items = $_SESSION['itemList'];
         <div class="total">$1,499.00</div>
     </div> -->
 
-    <button class="update-btn">UPDATE QTY</button>
-    <button class="remove-btn">REMOVE</button>
+    <button class="update-btn" form = 'items' name = 'update'>UPDATE QTY</button>
+    <button class="remove-btn" form = 'items' name = 'remove'>REMOVE</button>
+
+    <!-- checkout button -->
 </div>
+    <br>
+    <br>
+    <a id = 'checkout' href = 'checkout.php'>CHECKOUT NOW &nbsp&nbsp&nbsp<label>>>></label></a>
+
 
 </body>
 </html>

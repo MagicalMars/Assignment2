@@ -1,5 +1,11 @@
 <?php 
+require_once 'item.php';
+session_start();
+$totalPrice = 0;
 
+for ($i = 0; $i < count($_SESSION['itemList']); $i++){
+    $totalPrice += $_SESSION['itemList'][$i]->getQty() * $_SESSION['itemList'][$i]->getPrice();
+}
 
 ?>
 <!DOCTYPE html>
